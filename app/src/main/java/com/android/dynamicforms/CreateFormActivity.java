@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -27,6 +28,7 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
     LinearLayout formLayout;
     DynamicForm dynamicForm ;
     ArrayList<EditText> ets;
+    EditText etTitle;
     Database db;
 
     @Override
@@ -40,6 +42,7 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
         ets = new ArrayList<EditText>();
         dynamicForm = new DynamicForm(context);
         db = new Database(context);
+        etTitle = findViewById(R.id.formTitle);
     }
 
     @Override
@@ -75,7 +78,14 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
             }
         }
 
-        db.CreateStructure(formStructure);
+        String title = etTitle.getText().toString();
+        if(title == "" || title.isEmpty() || title == null){
+            Toast toast = Toast.makeText(CreateFormActivity.this, "Please Provide", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else {
+            db.createStructure(formStructure, etTitle.getText().toString());
+        }
 
 
     }
