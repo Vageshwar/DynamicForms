@@ -38,7 +38,7 @@ public class Database {
 //                    }
 //                });
 
-        db.collection("user").document("form-structure").set(formStructure);
+        db.collection("user").document(title).set(formStructure);
     }
 
     void fetchStructure(String id){
