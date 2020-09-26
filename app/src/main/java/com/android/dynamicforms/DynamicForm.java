@@ -33,12 +33,13 @@ public class DynamicForm {
         return myEditText;
     }
 
-    public FormItem addRow(LinearLayout formLayout, Context context, String hint) {
+    public FormItem addRow(LinearLayout formLayout, Context context, int i) {
         LinearLayout row = new LinearLayout(context);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(2.0f);
         EditText name = new EditText(context);
         Spinner type = new Spinner(context);
+        type.setId(i);
         List<String> list = new ArrayList<String>();
         list.add("Text");
         list.add("Number");
@@ -54,7 +55,6 @@ public class DynamicForm {
         layoutParams.setMargins(0, dpToPx(16), 0, 0);
         name.setLayoutParams(layoutParams);
         type.setLayoutParams(layoutParams);
-        name.setHint(hint);
 
         name.setTextSize(14);
 //        myEditText.getBackground().setColorFilter(context.getResources().getColor(R.color.fourth_black), PorterDuff.Mode.SRC_ATOP);

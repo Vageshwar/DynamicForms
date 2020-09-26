@@ -48,6 +48,7 @@
     </LinearLayout>
     <Button
         android:id="@+id/btnAddRow"
+        android:onClick="addRow"
         android:layout_below="@id/formLayout"
         android:layout_marginLeft="25dp"
         android:text="Add Row"

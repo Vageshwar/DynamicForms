@@ -19,32 +19,24 @@ import java.util.HashMap;
 public class CreateFormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Context context;
-    String type;
     ArrayList<FormItem> list;
+    ArrayList<String> types;
+    LinearLayout formLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_form);
         list = new ArrayList<FormItem>();
-        final LinearLayout formLayout = findViewById(R.id.formLayout);
+        formLayout = findViewById(R.id.formLayout);
+        types = new ArrayList<String>();
         Button addRow = findViewById(R.id.btnAddRow);
-        addRow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DynamicForm dynamicForm = new DynamicForm(context);
-               FormItem item = dynamicForm.addRow(formLayout,getApplicationContext(),"Test");
-               list.add(item);
-            }
-        });
-
-        type = "Text";
-
-
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        type = adapterView.getItemAtPosition(i).toString();
+        Log.d("ID",""+adapterView.getId());
+        String type = adapterView.getItemAtPosition(i).toString();
+        types.add(adapterView.getId(),adapterView.getItemAtPosition(i).toString());
     }
 
     @Override
@@ -56,10 +48,16 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
 
         HashMap<String, String> map = new HashMap<>();
 
-        for(FormItem item: list){
-            item.getType().setOnItemSelectedListener(this);
-            map.put(item.getName().getText().toString(),type);
-            Log.d(item.getName().getText().toString(), type);
+        for(int i = 0; i < list.size();i++){
+            Log.d(list.get(i).getName().getText().toString(),types.get(i));
+//            Log.d(item.getName().getText().toString(), type);
         }
+    }
+
+    public void addRow(View view) {
+        DynamicForm dynamicForm = new DynamicForm(context);
+        FormItem item = dynamicForm.addRow(formLayout,getApplicationContext(),list.size());
+        item.getType().setOnItemSelectedListener(this);
+        list.add(item);
     }
 }
