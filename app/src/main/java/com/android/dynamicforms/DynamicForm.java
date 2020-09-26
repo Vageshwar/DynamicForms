@@ -1,6 +1,9 @@
 package com.android.dynamicforms;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,7 +33,7 @@ public class DynamicForm {
         return myEditText;
     }
 
-    public LinearLayout addRow(LinearLayout formLayout, Context context, String hint) {
+    public FormItem addRow(LinearLayout formLayout, Context context, String hint) {
         LinearLayout row = new LinearLayout(context);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(2.0f);
@@ -46,23 +49,24 @@ public class DynamicForm {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(dataAdapter);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.weight = 1.0f;
-
-
-
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.width = dpToPx(150);
+        layoutParams.setMargins(0, dpToPx(16), 0, 0);
         name.setLayoutParams(layoutParams);
         type.setLayoutParams(layoutParams);
         name.setHint(hint);
-//        layoutParams.setMargins(0, dpToPx(16), 0, 0);
+
         name.setTextSize(14);
 //        myEditText.getBackground().setColorFilter(context.getResources().getColor(R.color.fourth_black), PorterDuff.Mode.SRC_ATOP);
         row.addView(name);
         row.addView(type);
         formLayout.addView(row);
+        return new FormItem(row,name,type);
+    }
 
-        return row;
+    private int dpToPx(float dp) {
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return Math.round(px);
     }
 }

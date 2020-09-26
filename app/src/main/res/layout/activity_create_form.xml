@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateFormActivity">
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -16,7 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"/>
-
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/divider"
@@ -27,7 +26,6 @@
         android:background="#838383"
         android:layout_marginHorizontal="25dp"
         />
-
     <EditText
         android:layout_marginTop="10dp"
         android:id="@+id/formTitle"
@@ -39,7 +37,6 @@
         android:textSize="25dp"
         android:textAlignment="center"
         android:hint="Title"/>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
@@ -48,20 +45,26 @@
         android:layout_below="@id/formTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
-
     </LinearLayout>
-
     <Button
         android:id="@+id/btnAddRow"
         android:layout_below="@id/formLayout"
         android:layout_marginLeft="25dp"
         android:text="Add Row"
+        android:textColor="#ffffff"
         android:textAllCaps="false"
         android:padding="5dp"
         android:layout_marginTop="5dp"
         android:background="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
+    <Button
+        android:textColor="#ffffff"
+        android:onClick="createForm"
+        android:id="@+id/createForm"
+        android:text="Create Form"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

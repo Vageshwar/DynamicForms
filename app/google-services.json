@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "67031106861",
+    "firebase_url": "https://hackathon-20fa5.firebaseio.com",
+    "project_id": "hackathon-20fa5",
+    "storage_bucket": "hackathon-20fa5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67031106861:android:2525c2227f74a0088cbfa4",
+        "android_client_info": {
+          "package_name": "com.android.dynamicforms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "67031106861-8sp7g6d96nm3j5rimud1ce61b1lql5on.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.dynamicforms",
+            "certificate_hash": "2f42ed58a0defb9e974fb393238df085eb9817ce"
+          }
+        },
+        {
+          "client_id": "67031106861-aeqeq203dse9f9vr4trnradhk211hf45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcRffPUo-ROPEKiAjv70hkQ_snhePFTjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "67031106861-aeqeq203dse9f9vr4trnradhk211hf45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
