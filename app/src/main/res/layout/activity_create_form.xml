@@ -42,6 +42,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:layout_centerHorizontal="true"
         android:id="@+id/formLayout"
         android:layout_marginTop="5dp"
         android:layout_below="@id/formTitle"
