@@ -64,6 +64,17 @@ public class DynamicForm {
         return new FormItem(row,name,type);
     }
 
+    public EditText addValues(Context context, LinearLayout formLayout, String hint ){
+        EditText myEditText = new EditText(context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.width = dpToPx(300);
+        myEditText.setLayoutParams(layoutParams);
+        myEditText.setHint(hint);
+        myEditText.setTextSize(14);
+        formLayout.addView(myEditText);
+        return myEditText;
+    }
+
     private int dpToPx(float dp) {
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         float px = dp * (metrics.densityDpi / 160f);

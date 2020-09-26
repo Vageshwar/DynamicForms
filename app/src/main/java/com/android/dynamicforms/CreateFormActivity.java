@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class CreateFormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -22,6 +25,10 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
     ArrayList<FormItem> list;
     ArrayList<String> types;
     LinearLayout formLayout;
+    DynamicForm dynamicForm ;
+    ArrayList<EditText> ets;
+    Database db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +37,22 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
         formLayout = findViewById(R.id.formLayout);
         types = new ArrayList<String>();
         Button addRow = findViewById(R.id.btnAddRow);
+        ets = new ArrayList<EditText>();
+        dynamicForm = new DynamicForm(context);
+        db = new Database(context);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         Log.d("ID",""+adapterView.getId());
         String type = adapterView.getItemAtPosition(i).toString();
-        types.add(adapterView.getId(),adapterView.getItemAtPosition(i).toString());
+        int index = adapterView.getId();
+        types.add(index,type);
+
+        if(type == "Radio Button" || type == "DropDown"){
+            EditText et = dynamicForm.addValues(getApplicationContext(),formLayout,"Enter Comma Seperated Value");
+            ets.add(index,et);
+        }
     }
 
     @Override
@@ -46,16 +62,26 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
 
     public void createForm(View view) {
 
-        HashMap<String, String> map = new HashMap<>();
+        HashMap<String, Object> formStructure = new HashMap<>();
 
         for(int i = 0; i < list.size();i++){
-            Log.d(list.get(i).getName().getText().toString(),types.get(i));
-//            Log.d(item.getName().getText().toString(), type);
+            String type = types.get(i);
+            Log.d(list.get(i).getName().getText().toString(),type);
+            formStructure.put(list.get(i).getName().getText().toString(),type);
+            if(type == "Radio Button" || type == "DropDown"){
+                String[] vals = ets.get(i).getText().toString().split(",");
+                Log.d("Values", Arrays.toString(vals));
+                formStructure.put(list.get(i).getName().getText().toString() + "_val", vals);
+            }
         }
+
+        db.CreateStructure(formStructure);
+
+
     }
 
     public void addRow(View view) {
-        DynamicForm dynamicForm = new DynamicForm(context);
+
         FormItem item = dynamicForm.addRow(formLayout,getApplicationContext(),list.size());
         item.getType().setOnItemSelectedListener(this);
         list.add(item);
