@@ -41,7 +41,7 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
         Button addRow = findViewById(R.id.btnAddRow);
         ets = new ArrayList<EditText>();
         dynamicForm = new DynamicForm(context);
-        db = new Database(context);
+        db = new Database(this.context);
         etTitle = findViewById(R.id.formTitle);
     }
 
@@ -52,9 +52,10 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
         int index = adapterView.getId();
         types.add(index,type);
 
+        Log.d("Index", index+"");
         if(type == "Radio Button" || type == "DropDown"){
             EditText et = dynamicForm.addValues(getApplicationContext(),formLayout,"Enter Comma Seperated Value");
-            ets.add(index,et);
+            ets.add(et);
         }
     }
 
@@ -74,17 +75,18 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
             if(type == "Radio Button" || type == "DropDown"){
                 String[] vals = ets.get(i).getText().toString().split(",");
                 Log.d("Values", Arrays.toString(vals));
-                formStructure.put(list.get(i).getName().getText().toString() + "_val", vals);
+                formStructure.put(list.get(i).getName().getText().toString() + "val", Arrays.asList(vals));
             }
         }
 
         String title = etTitle.getText().toString();
+        Log.d("Title", title);
         if(title == "" || title.isEmpty() || title == null){
-            Toast toast = Toast.makeText(CreateFormActivity.this, "Please Provide", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(CreateFormActivity.this, "Please Provide a Title", Toast.LENGTH_LONG);
             toast.show();
         }
         else {
-            db.createStructure(formStructure, etTitle.getText().toString());
+            db.createStructure(formStructure, title, getApplicationContext());
         }
 
 
@@ -93,7 +95,7 @@ public class CreateFormActivity extends AppCompatActivity implements AdapterView
     public void addRow(View view) {
 
         FormItem item = dynamicForm.addRow(formLayout,getApplicationContext(),list.size());
-        item.getType().setOnItemSelectedListener(this);
         list.add(item);
+        item.getType().setOnItemSelectedListener(this);
     }
 }

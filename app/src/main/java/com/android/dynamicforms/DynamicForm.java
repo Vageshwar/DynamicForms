@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class DynamicForm {
         this.context = context;
     }
 
-    public EditText setEditText(LinearLayout formLayout, Context context, String hint) {
+    public EditText setEditText(LinearLayout formLayout, Context context,String hint){
         EditText myEditText = new EditText(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -33,7 +35,7 @@ public class DynamicForm {
         return myEditText;
     }
 
-    public FormItem addRow(LinearLayout formLayout, Context context, int i) {
+    public FormItem addRow(LinearLayout formLayout, Context context, int i){
         LinearLayout row = new LinearLayout(context);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(2.0f);
@@ -64,7 +66,7 @@ public class DynamicForm {
         return new FormItem(row,name,type);
     }
 
-    public EditText addValues(Context context, LinearLayout formLayout, String hint ){
+    public EditText addValues(Context context, LinearLayout formLayout, String hint){
         EditText myEditText = new EditText(context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.width = dpToPx(300);
@@ -74,6 +76,22 @@ public class DynamicForm {
         formLayout.addView(myEditText);
         return myEditText;
     }
+
+    public void addRadioButtons(ArrayList<String> items, LinearLayout layout, Context context, String LableRg) {
+        layout.setOrientation(LinearLayout.VERTICAL);
+        RadioGroup lableRG = new RadioGroup(context);
+        //
+        int number = items.size();
+        for (int i = 1; i <= number; i++) {
+            RadioButton rdbtn = new RadioButton(context);
+//            lableBtn = findViewById(R.id.LRbtn);
+//            String LableBtn = lableBtn.getText().toString().trim();
+            rdbtn.setText(items.get(i-1));
+//            rdbtn.setOnClickListener(this);
+//            mRgAllButtons.addView(rdbtn);
+        }
+    }
+
 
     private int dpToPx(float dp) {
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
