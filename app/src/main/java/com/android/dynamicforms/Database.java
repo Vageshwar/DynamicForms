@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -75,7 +76,9 @@ public class Database {
     }
 
     void storeData(String formID, HashMap<String,Object> data){
-
+        String time = new Date().toString();
+        Log.d(TAG, "Date: "+time);
+        db.collection("user").document(formID).collection("form_data").document(time).set(data);
     }
 
     void FetchData(String formId){
